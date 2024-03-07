@@ -1,7 +1,7 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-// const path = require('path');
+
 const Tour = require('./../../models/tourModel');
 // Read all variables from the  file and save them into nodejs env variable
 dotenv.config({ path: './config.env' });
@@ -19,7 +19,7 @@ mongoose
   });
 
 // RREAD JSON FILE
-const tours = JSON.parse(fs.readFileSync('dev-data/data/import-dev-data.js', 'utf-8'));
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8'));
 
 // IMPORT FUNCTION
 const importData = async () => {
@@ -29,6 +29,7 @@ const importData = async () => {
   } catch (err) {
     console.log(err);
   }
+  process.exit();
 };
 
 // DELET FUNCTION
@@ -39,6 +40,11 @@ const deleteData = async () => {
   } catch (err) {
     console.log(err);
   }
+  process.exit();
 };
 
-console.log(process.argv);
+if (process.argv[2] === '--import') {
+  importData();
+} else if (process.argv[2] === '--delete') {
+  deleteData;
+}
