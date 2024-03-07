@@ -1,7 +1,7 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const path = require('path');
+
 // Read all variables from the  file and save them into nodejs env variable
 dotenv.config({ path: './config.env' });
 
