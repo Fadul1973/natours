@@ -34,4 +34,11 @@ app.use('/api/v1/users', getAllUsers);
 app.use('/api/v1/users/:id', getUser);
 app.use('/api/v1/users', createUsers);
 
+// To handle request that dosen't have routes
+app.all('*', (req, res, next) => {
+  res.status(404).json({
+    status: 'Fial',
+    message: `Can't find ${req.originalUrl} on this server`,
+  });
+});
 module.exports = app;
