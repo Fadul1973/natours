@@ -1,6 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const AppError = require('./utils/appError');
+const globaleErrorHandler = require('./controler/errorController');
 
 const app = express();
 
@@ -36,9 +38,8 @@ app.use('/api/v1/users', createUsers);
 
 // To handle request that dosen't have routes
 app.all('*', (req, res, next) => {
-  res.status(404).json({
-    status: 'Fial',
-    message: `Can't find ${req.originalUrl} on this server`,
-  });
+  next(new AppError(`Cann't find ${req.originalUrl} on this server!!`));
 });
+
+app.use(globaleErrorHandler);
 module.exports = app;
