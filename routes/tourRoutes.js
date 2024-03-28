@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const toursController = require('./../controler/tours-controller');
+const toursController = require('./../controllers/tours-controller');
 
 // MIDDLEWARE
 // router.param('id', toursController.checkID);

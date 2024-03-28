@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const AppError = require('./utils/appError');
-const globaleErrorHandler = require('./controler/errorController');
+const globaleErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
