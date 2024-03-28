@@ -2,6 +2,13 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+// Unhandled exception
+process.on('uncaughtException', (err) => {
+  console.log('UNCAUGHT EXCEPTION Shutting Down....');
+  console.log(err.name, err.message);
+  process.exit(1);
+});
+
 // Read all variables from the  file and save them into nodejs env variable
 dotenv.config({ path: './config.env' });
 
@@ -25,6 +32,15 @@ mongoose
 
 // SERVER
 const port = process.env.PORT || 8000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is up and running on port ${port}`);
+});
+
+// Unhandled rejection error handling
+process.on('unhandledRejection', (err) => {
+  console.log('UNHANDLED REJECTION Shutting Down....');
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
 });
