@@ -6,6 +6,9 @@ const handleCastErrorDB = (err) => {
   return new AppError(message, 400);
 };
 
+const handleJWTError = (error) =>
+  new AppError('Invalid token, please logi again!!');
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -44,5 +47,6 @@ module.exports = (err, req, res, next) => {
     let error = { ...err };
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
+    if (error.name === 'JsonWebTokenError') error = handleJWTError;
   }
 };
